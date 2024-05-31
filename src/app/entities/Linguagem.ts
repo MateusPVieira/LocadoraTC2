@@ -1,8 +1,8 @@
 class Linguagem {
-    id: number;
+    id: string;
     nome: string;
 
-    constructor(id: number, nome: string) {
+    constructor(id: string, nome: string) {
         this.id = id;
         this.nome = nome;
       }
