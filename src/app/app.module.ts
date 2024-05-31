@@ -6,17 +6,21 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './core/nav/nav.component';
 import { MainComponent } from './core/main/main.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CartazComponent } from './filmes/cartaz/cartaz.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    MainComponent
+    MainComponent,
+    CartazComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
