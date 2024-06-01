@@ -1,12 +1,10 @@
 class Categoria {
     id: number;
     nome: string;
-    ultimaAtualizacao: Date;
-
-    constructor(id: number, nome: string, ultimaAtualizacao: Date = new Date()) {
+    
+    constructor(id: number, nome: string) {
         this.id = id;
         this.nome = nome;
-        this.ultimaAtualizacao = ultimaAtualizacao;
       }
     
   }

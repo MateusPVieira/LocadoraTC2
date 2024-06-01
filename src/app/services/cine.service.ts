@@ -8,6 +8,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CineService {
+  private qtddMaxGenerosExibida: number = 3;
+
   private apiUrl: any = environment.apiURL;
   private apiKey: string = environment.apikey;
   public generos: any[] = [];
@@ -15,15 +17,15 @@ export class CineService {
   public filmes: Filme[] = [];
 
   constructor(private httpClient: HttpClient) {
-    this.getGeneros().subscribe((data: any) => {
+    this.getGeneros().then((data: any) => {
       this.generos = data.genres
    });
 
-   this.getLanguages().then((data:any) => {
+    this.getLanguages().then((data:any) => {
       this.linguagens = data;
    })
 
-   this.getFilmes().then((data: any) => {
+    this.getFilmes().then((data: any) => {
       this.filmes = data;
    })
   }
@@ -38,6 +40,7 @@ export class CineService {
       let anoLancamento: number = Number.parseInt(filmeJson.release_date.slice(0,3)); 
       let duracao: number = this.generateDuration(60, 240);
       let valorIngresso: number = this.generateTicketCost(duracao, filmeJson.vote_average);
+      let generos = this.mountGeneros(filmeJson.genre_ids);
       let filme = new Filme(
         filmeJson.id,
         linguagem, 
@@ -48,15 +51,25 @@ export class CineService {
         valorIngresso,
         duracao,
         filmeJson.vote_average,
-        filmeJson.poster_path
+        filmeJson.poster_path,
+        generos
         );
         filmes.push(filme);
     });
     return filmes;
   }
 
-  getGeneros(){
-    return this.httpClient.get(`${this.apiUrl.genres}?api_key=${this.apiKey}`);
+  async getGeneros(){
+    this.httpClient.get(`${this.apiUrl.genres}?api_key=${this.apiKey}`);
+  }
+
+  mountGeneros(ids:any[]){
+    const categorias: Categoria[] = []
+    ids.forEach((id: any) => {
+      const nome: string = this.getGenerosNames(id)[0];
+      categorias.push(new Categoria(id, nome))
+    });
+    return categorias;
   }
 
   async getLanguages(){
@@ -136,7 +149,7 @@ export class CineService {
     return datas.initialFormatted + " ~ " + datas.nextFormatted;
   }
 
-  getGenerosNames(generosIds: string[], quantidade: number): string[] {
+  getGenerosNames(generosIds: string[]): string[] {
     const nomesGeneros: string[] = [];
   
     for (const generoId of generosIds) {
@@ -144,10 +157,6 @@ export class CineService {
   
       if (nomeGenero) {
         nomesGeneros.push(nomeGenero.name);
-  
-        if (nomesGeneros.length === quantidade) {
-          break; // Interrompe o loop quando a quantidade desejada for atingida
-        }
       }
     }
   
