@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable, Subscriber } from 'rxjs';
+
 
 
 @Injectable({
@@ -12,7 +12,7 @@ export class CineService {
   private apiKey: string = environment.apikey;
   private generos: any[] = [];
   private linguagens: Linguagem[] = [];
-  private filmes: Filme[] = [];
+  public filmes: Filme[] = [];
 
   constructor(private httpClient: HttpClient) {
     this.getGeneros().subscribe((data: any) => {
@@ -46,7 +46,8 @@ export class CineService {
         filmeJson.release_date,
         anoLancamento,
         valorIngresso,
-        filmeJson.vote_average
+        filmeJson.vote_average,
+        filmeJson.poster_path
         );
         filmes.push(filme);
     });
