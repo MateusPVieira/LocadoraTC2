@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class CineService {
   private apiUrl: any = environment.apiURL;
   private apiKey: string = environment.apikey;
-  private generos: any[] = [];
+  public generos: any[] = [];
   private linguagens: Linguagem[] = [];
   public filmes: Filme[] = [];
 
@@ -43,9 +43,10 @@ export class CineService {
         linguagem, 
         filmeJson.title,
         filmeJson.overview,
-        filmeJson.release_date,
         anoLancamento,
+        filmeJson.release_date,
         valorIngresso,
+        duracao,
         filmeJson.vote_average,
         filmeJson.poster_path
         );
