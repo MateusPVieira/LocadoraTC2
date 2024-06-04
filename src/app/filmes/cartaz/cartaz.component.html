@@ -2,11 +2,11 @@
 <div class="card">
     <img class="poster"src="" alt="" srcset="{{imgUrl}}">
     <img class="divider" srcset="">
-    <h3>{{filme.title}}</h3>
+    <h3>{{filme.titulo}}</h3>
     <img class="divider" srcset="">
     <div class="categorias">
-        <span class="genero" *ngFor="let genero of generos">{{genero}}</span>
+        <span class="categoria" *ngFor="let categoria of categorias">{{categoria.nome}}</span>
     </div>
-    <a href="">Comprar ingresso</a>
+    <button mat-flat-button color="primary" (click) ="onDetails()">Comprar ingresso</button>
     <span class="data">{{dataEmCartaz}}</span>
 </div>

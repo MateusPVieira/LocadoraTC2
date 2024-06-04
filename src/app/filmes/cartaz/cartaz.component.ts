@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Categoria } from 'src/app/entities/Categoria';
+import { Filme } from 'src/app/entities/Filme';
+import { Linguagem } from 'src/app/entities/Linguagem';
 import { CineService } from 'src/app/services/cine.service';
 
 @Component({
@@ -7,19 +10,23 @@ import { CineService } from 'src/app/services/cine.service';
   styleUrls: ['./cartaz.component.scss']
 })
 export class CartazComponent {
-  @Input() filme: any
-
+  @Input() filme: Filme = new Filme(0, new Linguagem("", ""), "", "", 0, "", 0, 0, 0, "", []);
+  @Output() details = new EventEmitter(false);
   public imgUrl: string = "";
   public dataEmCartaz: any = ""
-  public generos: string[] = []
-  private qtddMaxGenerosExibida: number = 3;
+  public categorias: Categoria[] = []
+ 
 
 
   constructor(private service: CineService){}
 
   ngOnInit(){
-    this.imgUrl =`https://image.tmdb.org/t/p/w500/${this.filme.poster_path}`
-    this.dataEmCartaz = this.service.getDatasEmCartazString(this.filme.release_date)
-    this.generos = this.service.getGenerosNames(this.filme.genre_ids, this.qtddMaxGenerosExibida);
+    this.imgUrl =`https://image.tmdb.org/t/p/w500/${this.filme.poster}`
+    this.dataEmCartaz = this.service.getDatasEmCartazString(this.filme.dataLancamento);
+    this.categorias = this.filme.categorias;
+  }
+
+  onDetails(){
+    this.details.emit(this.filme);
   }
 }

@@ -1,0 +1,7 @@
+<div class="lista">
+    <h1>EM CARTAZ</h1>
+    <div class="posters">
+        <app-cartaz *ngFor="let filme of filmes" (details)="onBuy(filme)" [filme] = "filme"></app-cartaz>
+    </div>
+</div>
+

@@ -6,18 +6,19 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './core/nav/nav.component';
 import { MainComponent } from './core/main/main.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CartazComponent } from './filmes/cartaz/cartaz.component';
 import { HttpClientModule } from '@angular/common/http';
+import {MatButtonModule} from '@angular/material/button';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    MainComponent,
-    CartazComponent
+    MainComponent
   ],
   imports: [
     BrowserModule,
+    MatButtonModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule
