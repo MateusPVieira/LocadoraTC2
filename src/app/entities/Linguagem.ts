@@ -1,4 +1,4 @@
-class Linguagem {
+export class Linguagem {
     id: string;
     nome: string;
 

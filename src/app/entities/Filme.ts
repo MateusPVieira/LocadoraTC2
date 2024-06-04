@@ -1,4 +1,7 @@
-class Filme {
+import { Categoria } from "./Categoria";
+import { Linguagem } from "./Linguagem";
+
+export class Filme {
     id: number;
     linguagem: Linguagem;
     titulo: string;
@@ -26,8 +29,4 @@ class Filme {
         this.categorias = categorias;
       }
 
-    generateEmpty(){
-        return new Filme(0, new Linguagem("", ""), "", "", 0, "", 0, 0, 0, "", []);
-    }
-      
   }
