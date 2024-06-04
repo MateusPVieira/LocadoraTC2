@@ -1,0 +1,14 @@
+<mat-card class="details-card">
+    <mat-card-header>
+        <img class="poster" src="" alt="" srcset="{{imgUrl}}">
+        <mat-card-title>{{filme.titulo}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="categorias">
+            <span class="categoria" *ngFor="let categoria of categorias">{{categoria.nome}}</span>
+        </div>
+        <app-star-rating [rating]="filme.avaliacao"></app-star-rating>
+        <span class="categoria duracao">Duracao: {{filme.duracao}} minutos</span>
+        <p>{{filme.descricao}}</p>
+    </mat-card-content>
+</mat-card>
