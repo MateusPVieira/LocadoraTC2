@@ -1,13 +1,12 @@
-import { Filme } from "./Filme";
-import { Linguagem } from "./Linguagem";
+import { Secao } from "./Secao";
 
 export class Sala {
     private id: number;
-    private filme: Filme;
+    private secoes: Secao[];
 
     constructor(){
         this.id = 0;
-        this.filme = new Filme(0, new Linguagem("", ""), "", "", 0, "", 0, 0, 0, "", []);
+        this.secoes = [];
     }
 
     getId(){
@@ -18,13 +17,12 @@ export class Sala {
         this.id = id;
     }
       
-    getFilme(){
-        return this.filme;
+    getSecao(){
+        return this.secoes;
     }
 
-    setFilme(filme: Filme){
-        this.filme = filme;
+    addSecao(secao: Secao){
+        this.secoes.push(secao);
     }
-
 
   }

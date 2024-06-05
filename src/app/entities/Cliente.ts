@@ -1,17 +1,19 @@
-class Cliente {
+import { Ingresso } from "./Ingresso";
+
+export class Cliente {
     id: number;
-    enderecoId: number;
-    primeiroNome: string;
-    ultimoNome: string;
-    ativo: boolean;
+    nome: string;
     email: string;
+    ingressos: Ingresso[];
     
-    constructor(id: number, enderecoId: number, primeiroNome: string, ultimoNome: string, ativo: boolean, email: string) {
+    constructor(id: number, nome: string, ultimoNome: string, email: string) {
         this.id = id;
-        this.enderecoId = enderecoId;
-        this.primeiroNome = primeiroNome;
-        this.ultimoNome = ultimoNome;
-        this.ativo = ativo;
+        this.nome = nome;
         this.email = email;
+        this.ingressos = []
+      }
+
+      addIngresso(ingresso: Ingresso){
+        this.ingressos.push(ingresso);
       }
   }
