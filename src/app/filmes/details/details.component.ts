@@ -6,6 +6,8 @@ import { Filme } from 'src/app/entities/Filme';
 import { Linguagem } from 'src/app/entities/Linguagem';
 import { CineService } from 'src/app/services/cine.service';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
+import { SecaoService } from '../../services/secao.service';
+import { Secao } from 'src/app/entities/Secao';
 
 @Component({
   selector: 'app-details',
@@ -17,12 +19,13 @@ import { StarRatingComponent } from '../star-rating/star-rating.component';
 export class DetailsComponent {
   @Input() filme: Filme = new Filme(0, new Linguagem("", ""), "", "", 0, "", 0, 0, 0, "", []);
   public imgUrl: string = "";
-  public dataEmCartaz: any = ""
-  public categorias: Categoria[] = []
+  public dataEmCartaz: any = "";
+  public categorias: Categoria[] = [];
+  public secoes: Secao[] = [];
  
 
 
-  constructor(private service: CineService){}
+  constructor(private service: CineService, private SecaoService: SecaoService){}
 
   ngOnInit(){
     this.filme = this.service.getDetails();
@@ -58,6 +61,7 @@ export class DetailsComponent {
     this.imgUrl =`https://image.tmdb.org/t/p/w500/${this.filme.poster}`
     this.dataEmCartaz = this.service.getDatasEmCartazString(this.filme.dataLancamento);
     this.categorias = this.filme.categorias;
+    this.secoes = this.SecaoService.secoes.filter((secao: Secao) => secao.getFilme() == this.filme)
   }
 
 }

@@ -1,50 +1,37 @@
 <mat-card class="form-card">
     <form class="example-form">
-        <mat-form-field class="example-full-width">
-            <mat-label>Company (disabled)</mat-label>
-            <input matInput disabled value="Google">
-        </mat-form-field>
-
         <table class="example-full-width" cellspacing="0">
             <tr>
                 <td><mat-form-field class="example-full-width">
-                        <mat-label>First name</mat-label>
-                        <input matInput>
-                    </mat-form-field></td>
-                <td><mat-form-field class="example-full-width">
-                        <mat-label>Long Last Name That Will Be Truncated</mat-label>
-                        <input matInput>
+                        <mat-label>Nome</mat-label>
+                        <input matInput required [formControl]="nome">
+                        <mat-error *ngIf="email.invalid">{{getErrorNomeMessage()}}</mat-error>
                     </mat-form-field></td>
             </tr>
-        </table>
-
-        <p>
-            <mat-form-field class="example-full-width">
-                <mat-label>Address</mat-label>
-                <textarea matInput placeholder="Ex. 100 Main St">1600 Amphitheatre Pkwy</textarea>
-            </mat-form-field>
-            <mat-form-field class="example-full-width">
-                <mat-label>Address 2</mat-label>
-                <textarea matInput></textarea>
-            </mat-form-field>
-        </p>
-
-        <table class="example-full-width" cellspacing="0">
             <tr>
-                <td><mat-form-field class="example-full-width">
-                        <mat-label>City</mat-label>
-                        <input matInput placeholder="Ex. San Francisco">
-                    </mat-form-field></td>
-                <td><mat-form-field class="example-full-width">
-                        <mat-label>State</mat-label>
-                        <input matInput placeholder="Ex. California">
-                    </mat-form-field></td>
-                <td><mat-form-field class="example-full-width">
-                        <mat-label>Postal Code</mat-label>
-                        <input matInput #postalCode maxlength="5" placeholder="Ex. 94105" value="94043">
-                        <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-                    </mat-form-field></td>
+                <td>  <mat-form-field appearance="fill">
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder="email@example.com" [formControl]="email" required>
+                    <mat-error *ngIf="email.invalid">{{getErrorEmailMessage()}}</mat-error>
+                  </mat-form-field></td>
             </tr>
+            <tr>
+                <mat-form-field appearance="fill">
+                    <mat-label>Seção</mat-label>
+                    <mat-select [(ngModel)]="sessaoSelected" name="sessao">
+                      <mat-option *ngFor="let sessao of sessoes" [value]="sessao">
+                        Sessao:{{sessao.getId()}} - Horário: {{sessao.getHorario()}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </tr>
+            <p *ngIf = "sessaoSelected.getSala().getId() != 0"> Sala: {{sessaoSelected.getSala().getId()}} </p>
+            <div *ngIf = "sessaoSelected.getSala().getId() != 0" class="valor">
+                <span>Valor Ingresso</span>
+                <h4> R${{sessaoSelected.getFilme().valorIngresso}},00</h4>
+            </div>
+            
         </table>
+        <button mat-flat-button color="primary" (click) ="onBuy()">Comprar ingresso</button>
     </form>
 </mat-card>

@@ -7,6 +7,7 @@ import { BuyTicketsComponent } from './buy-tickets/buy-tickets.component';
 import { BuyTicketsFormComponent } from './buy-tickets-form/buy-tickets-form.component';
 import { DetailsComponent } from 'src/app/filmes/details/details.component';
 import { MaterialModule } from 'src/app/core/shared/material/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,7 +19,9 @@ import { MaterialModule } from 'src/app/core/shared/material/material.module';
     CommonModule,
     MaterialModule,
     TicketsRoutingModule,
-    DetailsComponent
+    DetailsComponent,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class TicketsModule { }

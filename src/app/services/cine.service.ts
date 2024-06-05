@@ -12,7 +12,7 @@ import { Categoria } from '../entities/Categoria';
 })
 export class CineService {
   private qtddMaxGenerosExibida: number = 3;
-  private qtddMaxFilmesEmExbicao: number = 4;
+  public qtddMaxFilmesEmExbicao: number = 4;
 
   private apiUrl: any = environment.apiURL;
   private apiKey: string = environment.apikey;
