@@ -9,3 +9,14 @@ span{
 .valor span{
     font-size: 23px;
 }
+
+.sessao {
+    display: flex;
+    gap: 16px;
+}
+
+mat-card-title {
+    font-size: 1.2rem;
+    color: #673ab7;
+    margin-bottom: 1rem;
+}
