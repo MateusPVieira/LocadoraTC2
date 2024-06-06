@@ -1,37 +1,45 @@
 <mat-card class="form-card">
-    <form class="example-form">
-        <table class="example-full-width" cellspacing="0">
-            <tr>
-                <td><mat-form-field class="example-full-width">
-                        <mat-label>Nome</mat-label>
-                        <input matInput required [formControl]="nome">
-                        <mat-error *ngIf="email.invalid">{{getErrorNomeMessage()}}</mat-error>
-                    </mat-form-field></td>
-            </tr>
-            <tr>
-                <td>  <mat-form-field appearance="fill">
-                    <mat-label>Email</mat-label>
-                    <input matInput placeholder="email@example.com" [formControl]="email" required>
-                    <mat-error *ngIf="email.invalid">{{getErrorEmailMessage()}}</mat-error>
-                  </mat-form-field></td>
-            </tr>
-            <tr>
-                <mat-form-field appearance="fill">
-                    <mat-label>Seção</mat-label>
-                    <mat-select [(ngModel)]="sessaoSelected" name="sessao">
-                      <mat-option *ngFor="let sessao of sessoes" [value]="sessao">
-                        Sessao:{{sessao.getId()}} - Horário: {{sessao.getHorario()}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-            </tr>
-            <p *ngIf = "sessaoSelected.getSala().getId() != 0"> Sala: {{sessaoSelected.getSala().getId()}} </p>
-            <div *ngIf = "sessaoSelected.getSala().getId() != 0" class="valor">
+  <form [formGroup]="buyForm" class="example-form">
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <mat-label>Nome</mat-label>
+              <input matInput formControlName="nome" required />
+              <mat-error *ngIf="buyForm.get('nome')?.invalid">{{getErrorNomeMessage()}}</mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" required />
+              <mat-error *ngIf="buyForm.get('email')?.invalid">{{getErrorEmailMessage()}}</mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <mat-form-field appearance="fill">
+            <mat-label>Seção</mat-label>
+            <mat-select formControlName="sessao"> 
+              <mat-option *ngFor="let sessao of sessoes" [value]="sessao">
+                Sessao:{{sessao.getId()}} - Horário: {{sessao.getHorario()}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="buyForm.get('sessao')?.invalid">{{getErrorSessaoMessage()}}</mat-error>
+          </mat-form-field>
+        </tr>
+    
+                    <p *ngIf="buyForm.get('sessao')?.value?.getSala()?.getId() != undefined"> Sala: {{buyForm.get('sessao')?.value?.getSala()?.getId()}} </p>
+            <div *ngIf="buyForm.get('sessao')?.value?.getSala()?.getId() != undefined" class="valor">
                 <span>Valor Ingresso</span>
-                <h4> R${{sessaoSelected.getFilme().valorIngresso}},00</h4>
+                <h4> R${{buyForm.get('sessao')?.value?.getFilme()?.valorIngresso}},00</h4>
             </div>
-            
         </table>
-        <button mat-flat-button color="primary" (click) ="onBuy()">Comprar ingresso</button>
+    
+      <button mat-flat-button color="primary" (click)="onBuy()" [disabled]="buyForm.invalid">
+        Comprar ingresso
+      </button>
     </form>
 </mat-card>

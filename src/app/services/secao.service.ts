@@ -5,14 +5,23 @@ import { SalaService } from './sala.service';
 import { UtilService } from './util.service';
 import { Filme } from '../entities/Filme';
 import { Sala } from '../entities/Sala';
+import { Ingresso } from '../entities/Ingresso';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SecaoService {
+  secaoParaTeste ={
+
+  }
   numeroDeSecoes: number = 20;
   horarios: string[] = ["13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00"]
   secoes: Secao[];
+
+  
+  private ingressoSource = new BehaviorSubject<Ingresso>(new Ingresso());
+  currentIngresso = this.ingressoSource.asObservable();
 
   constructor(private cineService: CineService, private salaService: SalaService, private utilService: UtilService) { 
     this.secoes = this.generateSecoes();
@@ -91,5 +100,17 @@ export class SecaoService {
     return false;
   }
 
+  findSessaoIndex(id: number){
+    for (let index = 0; index < this.secoes.length; index++) {
+          if(this.secoes[index].getId() == id){
+            return index;
+          }        
+    }
+    return 0;
+  }
+
+  changeIngresso(ingresso: Ingresso) {
+    this.ingressoSource.next(ingresso);
+  }
 
 }

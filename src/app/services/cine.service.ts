@@ -101,20 +101,16 @@ export class CineService {
     if (linguagemFound) {
       return linguagemFound;
     }
-    console.log(`linguagem ${language} não encontrada!`)
     return new Linguagem("", "");
   }
 
   filterFilmesEmExibicao(){
-    console.log(this.filmes)
     const filmesEmExibicao: Filme[] = [];
    // const randomIndexes = this.generateRandomNumbers(this.qtddMaxFilmesEmExbicao);
    const randomIndexes = [1,2,3,4]
-    console.log(randomIndexes);
     for (let index = 0; index < this.qtddMaxFilmesEmExbicao; index++) {
       filmesEmExibicao.push(this.filmes[randomIndexes[index]])      
     }
-    console.log(filmesEmExibicao);
     this.filmesEmExibicao = filmesEmExibicao;
   }
 

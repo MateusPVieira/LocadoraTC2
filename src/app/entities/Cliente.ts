@@ -1,13 +1,11 @@
 import { Ingresso } from "./Ingresso";
 
 export class Cliente {
-    id: number;
     nome: string;
     email: string;
     ingressos: Ingresso[];
     
-    constructor(id: number, nome: string, ultimoNome: string, email: string) {
-        this.id = id;
+    constructor(nome: string, email: string) {
         this.nome = nome;
         this.email = email;
         this.ingressos = []
